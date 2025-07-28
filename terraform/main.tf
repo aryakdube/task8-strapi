@@ -143,21 +143,7 @@ resource "aws_lb" "alb" {
   "subnet-03e27b60efa8df9f0"  
 ]
 }
-# Create RDS subnet group
-resource "aws_db_subnet_group" "db_subnet_group" {
-  name       = "aryak-strapi-db-subnet-group"
-  subnet_ids = [
-    "subnet-024126fd1eb33ec08", 
-    "subnet-03e27b60efa8df9f0"  
-  ]
-  tags = {
-    Name = "strapi-db-subnet-group"
-  }
 
-  lifecycle {
-    ignore_changes = [subnet_ids]
-  }
-}
 
 
 # Target group for ECS tasks
@@ -193,26 +179,7 @@ resource "aws_lb_listener" "listener" {
   }
 }
 
-# Create RDS PostgreSQL instance
-resource "aws_db_instance" "postgres" {
-  identifier             = "aryak-strapi-postgres"
-  engine                 = "postgres"
-  engine_version         = "17.4"
-  instance_class         = "db.t3.micro"
-  allocated_storage      = 20
-  db_name                = var.db_name
-  username               = var.db_username
-  password               = var.db_password
-  db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.ecs_sg.id]
-  skip_final_snapshot    = true
-  publicly_accessible    = false
-  backup_retention_period = 7
 
-  tags = {
-    Name = "AryakStrapiPostgresDB"
-  }
-}
 ## ECS Service
 resource "aws_ecs_service" "strapi_service" {
   name            = "aryak-strapi-service"
