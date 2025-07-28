@@ -83,6 +83,4 @@ jobs:
           name: terraform-state
           path: ./terraform/terraform.tfstate
 
-      - name: ECS Deployment Status Check
-        run: |
-          aws ecs wait services-stable --cluster aryak-strapi-cluster --services aryak-strapi-service
+      
