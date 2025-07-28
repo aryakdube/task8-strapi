@@ -5,7 +5,7 @@ variable "region" {
 
 variable "ecs_task_execution_role_arn" {
   description = "IAM role ARN for ECS task execution"
-  default     = "arn:aws:iam::607700977843:role/ecs-task-execution-role"
+  default     = "arn:aws:iam::607700977843:role/ecsTaskExecutionRole-Aryak"
 }
 
 variable "strapi_image_tag" {
