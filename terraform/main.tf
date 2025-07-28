@@ -95,7 +95,7 @@ resource "aws_ecs_task_definition" "strapi_task" {
 
 # Security group for ALB and ECS tasks
 resource "aws_security_group" "ecs_sg" {
-  name        = "aryak-strapi-ecs-sg4"
+  name        = "aryak-strapi-ecs-sg5"
   description = "Allow HTTP from anywhere and Postgres traffic within SG"
   vpc_id      = data.aws_vpc.default.id
 
@@ -239,16 +239,15 @@ resource "aws_ecs_service" "strapi_service" {
 
   depends_on = [aws_lb_listener.listener]
 }
-
 resource "aws_cloudwatch_log_group" "strapi_logs" {
-  name              = "/ecs/strapi"      # Yeh name container definition me use hoga
+  name              = "/ecs/strapi-aryak"      # Yeh name container definition me use hoga
   retention_in_days = 14                 # Logs 14 din rakhega (change as needed)
   tags = {
     "Name" = "StrapiLogs"
   }
 }
 resource "aws_cloudwatch_metric_alarm" "high_cpu" {
-  alarm_name          = "strapi-cpu-high"
+  alarm_name          = "aryak-strapi-cpu-high"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
   metric_name         = "CPUUtilization"
@@ -265,7 +264,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   # alarm_actions   = [aws_sns_topic.your_topic.arn]
 }
 resource "aws_cloudwatch_metric_alarm" "low_task_count" {
-  alarm_name          = "strapi-task-count-low"
+  alarm_name          = "aryak-strapi-task-count-low"
   metric_name         = "RunningTaskCount"
   namespace           = "AWS/ECS"
   statistic           = "Minimum"
@@ -279,7 +278,7 @@ resource "aws_cloudwatch_metric_alarm" "low_task_count" {
   }
 }
 resource "aws_cloudwatch_dashboard" "strapi_dashboard" {
-  dashboard_name = "strapi-ecs-dashboard"
+  dashboard_name = "aryak-strapi-ecs-dashboard"
   dashboard_body = jsonencode({
     widgets = [
       {
