@@ -94,8 +94,8 @@ resource "aws_ecs_task_definition" "strapi_task" {
 }
 
 # Security group for ALB and ECS tasks
-resource "aws_security_group" "ecs_sg7" {
-  name        = "aryak-strapi-ecs-sg4"
+resource "aws_security_group" "ecs_sg" {
+  name        = "aryak-strapi-ecs-sg7"
   description = "Allow HTTP from anywhere and Postgres traffic within SG"
   vpc_id      = data.aws_vpc.default.id
 
