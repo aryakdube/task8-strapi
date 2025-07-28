@@ -19,7 +19,7 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-
+#hello
 resource "aws_ecs_task_definition" "strapi_task" {
   family                   = "aryak-strapi-task"
   requires_compatibilities = ["FARGATE"]
